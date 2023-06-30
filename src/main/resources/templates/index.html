@@ -1,263 +1,91 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Registration and Login App</title>
+<title>VIVID HOSPITAL</title>
 
 <link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
-
-<style>
 	
-
-	
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600&display=swap');
-
-
-
-*{
-   font-family: 'Montserrat', sans-serif;
-   margin:0; padding:0;
-   box-sizing: border-box;
-   outline: none; border:none;
-   text-decoration: none;
-   text-transform: capitalize;
-   transition: all .2s linear;
-}
-
-body{
- background-color: #dc143c22; 
-}
-
-
-.container{
-  max-width: 1200px;
-  margin: 0 auto;
-  text-align: center;
-  padding:25px 20px;
-}
-
-.container .heading{
-  font-size: 40px;
-  margin-bottom: 20px;
-  color:#334;
-}
-
-.container .box-container{
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap:20px;
-}
-
-.container .box-container .box{
-  background-color: #fff;
-  padding:20px;
-  border-radius: 5px;
-  box-shadow: 0 5px 10px rgba(0,0,0,.2);
-  display: none;
-}
-
-.container .box-container .box:nth-child(1),
-.container .box-container .box:nth-child(2),
-.container .box-container .box:nth-child(3){
-  display: inline-block;
-}
-
-.container .box-container .box .image{
-  margin-bottom: 20px;
-  overflow: hidden;
-  height: 250px;
-  border-radius: 5px;
-}
-
-.container .box-container .box .image img{
-  height: 100%;
-  width: 100%;
-  object-fit: cover;
-}
-
-.container .box-container .box:hover .image img{
-  transform: scale(1.1);
-}
-
-.container .box-container .box .content h3{
-  font-size: 20px;
-  color:#334;
-}
-
-.container .box-container .box .content p{
-  font-size: 15px;
-  color:#777;
-  line-height: 2;
-  padding:15px 0;
-}
-
-.container .box-container .box .content .btn{
-  display: inline-block;
-  padding:10px 30px;
-  border:1px solid #334;
-  color:#334;
-  font-size: 16px;
-}
-
-.container .box-container .box .content .btn:hover{
-  background-color: crimson;
-  border-color: crimson;
-  color:#fff;
-}
-
-.container .box-container .box .content .icons{
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 20px;
-  padding-top: 15px;
-  border-top:1px solid #334;
-}
-
-.container .box-container .box .content .icons span{
-  font-size: 14px;
-  color:#777;
-}
-
-.container .box-container .box .content .icons span i{
-  color:crimson;
-  padding-right: 5px;
-}
-
-#load-more{
-  margin-top: 20px;
-  display: inline-block;
-  padding:13px 30px;
-  border:1px solid #334;
-  color:#334;
-  font-size: 16px;
-  background-color: #fff;
-  cursor: pointer;
-}
-
-#load-more:hover{
-  background-color: crimson;
-  border-color: crimson;
-  color:#fff;
-}
-
-@media (max-width:450px){
-
-  .container .heading{
-    font-size: 25px;
-  }
-
-  .container .box-container{
-    grid-template-columns: 1fr;
-  }
-
-  .container .box-container .box .image{
-    height: 200px;
-  }
-
-  .container .box-container .box .content p{
-    font-size: 12px;
-  }
-
-  .container .box-container .box .content .icons span{
-    font-size: 12px;
-  }
-
-}
-	</style>
-
 </head>
 <body>
-	<!-- create navigation bar ( header) -->
-	<div id="one">
-	<nav class="navbar navbar-inverse navbar-fixed-top">
-		<div class="container">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-					aria-controls="navbar">
-					<span class="sr-only">Toggle navigation</span> <span
-						class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="#" th:href="@{/}">VIVID HOSPITAL PATIENT PORTAL</a>
-			</div>
-			<div id="navbar" class="collapse navbar-collapse">
-				<ul class="nav navbar-nav">
-					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
-				</ul>
+
+	<div class="container my-2">
+	<h1>Doctors List</h1>
+	
+	<a th:href = "@{/showNewEmployeeForm}" class="btn btn-primary btn-sm mb-3"> Add Doctor </a>
+	
+		<table border="1" class = "table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th>
+						<a th:href="@{'/page/' + ${currentPage} + '?sortField=firstName&sortDir=' + ${reverseSortDir}}">
+							First Name</a>
+					</th>
+					<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=lastName&sortDir=' + ${reverseSortDir}}">
+							Last Name</a>
+					</th>
+					<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">
+							Email</a>
+					</th>
+					<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=emsp&sortDir=' + ${reverseSortDir}}">
+							Specialist</a>
+					</th>
+					<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=age&sortDir=' + ${reverseSortDir}}">
+							Age</a>
+					</th>
+					<th>
+					<a th:href="@{'/page/' + ${currentPage} + '?sortField=phone&sortDir=' + ${reverseSortDir}}">
+							Phone No</a>
+					</th>
+					
+					<th> Actions </th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="employee : ${listEmployees}">
+					<td th:text="${employee.firstName}"></td>
+					<td th:text="${employee.lastName}"></td>
+					<td th:text="${employee.email}"></td>
+					<td th:text="${employee.emsp}"></td>
+					<td th:text="${employee.age}"></td>
+					<td th:text="${employee.phone}"></td>
+			
+					<td> <a th:href="@{/showFormForUpdate/{id}(id=${employee.id})}" class="btn btn-primary">Update</a>
+					    <a th:href="@{/deleteEmployee/{id}(id=${employee.id})}" class="btn btn-danger">Delete</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		<div th:if = "${totalPages > 1}">
+			<div class = "row col-sm-10">
+				<div class = "col-sm-2">
+					Total Rows: [[${totalItems}]] 
+				</div>
+				<div class = "col-sm-1">
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+						<a th:if="${currentPage != i}" th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+					</span>
+				</div>
+				<div class = "col-sm-1">
+					<a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Next</a>
+					<span th:unless="${currentPage < totalPages}">Next</span>
+				</div>
+				
+				 <div class="col-sm-1">
+    				<a th:if="${currentPage < totalPages}" th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">Last</a>
+					<span th:unless="${currentPage < totalPages}">Last</span>
+   				 </div>
 			</div>
 		</div>
-	</nav></div>
-
-	<br>
-	<br>
-
-	<div class="container">
-   <br><br>
-   <h1 class="heading">PATIENT PORTAL</h1>
-
-   <div class="box-container">
-
-      <div class="box">
-         <div class="image">
-            <img src="images/doctor.jpg" alt="">
-         </div>
-         <div class="content">
-            <h3>View Doctors</h3>
-            <p>Patients can View all the Doctors present in the Hospital.</p>
-            <a href="http://localhost:7000/" class="btn">Click Here</a>
-            <div class="icons">
-               <span> <i class="fas fa-calendar"></i> 16th june, 2023 </span>
-               <span> <i class="fas fa-user"></i> by patient </span>
-            </div>
-         </div>
-      </div>
-
-
-      <div class="box">
-         <div class="image">
-            <img src="images/appointment1.jpg" alt="">
-         </div>
-         <div class="content">
-            <h3>Book Appointments</h3>
-            <p>Patient will be able to book the Appointment.</p>
-            <a href="patientappointment.html" class="btn">Click Here</a>
-            <div class="icons">
-               <span> <i class="fas fa-calendar"></i> 16th june, 2023 </span>
-               <span> <i class="fas fa-user"></i> by patient </span>
-            </div>
-         </div>
-      </div>
-
-
-   </div>
-
-
-</div>
-
-<script>
-
-let loadMoreBtn = document.querySelector('#load-more');
-let currentItem = 3;
-
-loadMoreBtn.onclick = () =>{
-   let boxes = [...document.querySelectorAll('.container .box-container .box')];
-   for (var i = currentItem; i < currentItem + 3; i++){
-      boxes[i].style.display = 'inline-block';
-   }
-   currentItem += 3;
-
-   if(currentItem >= boxes.length){
-      loadMoreBtn.style.display = 'none';
-   }
-}
-
-</script>
-
+	</div>
 </body>
 </html>
